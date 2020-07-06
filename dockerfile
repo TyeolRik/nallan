@@ -8,9 +8,12 @@ RUN dnf -y update && dnf clean all && dnf install -y gcc gcc-c++ git wget
 ARG golang_download_file=go1.14.4.linux-amd64.tar.gz
 
 # 1. Get Go Language as above version
-RUN wget "https://golang.org/dl/${golang_download_file}" && tar -C /usr/local -xzf ${golang_download_file} && export PATH=$PATH:/usr/local/go/bin
-RUN export GOBIN="$HOME/go/bin" && export GOPATH="$HOME/go" && echo "alias ll='ls -al'" >> /root/.bashrc
-RUN source /etc/profile && source /root/.bashrc
+RUN wget "https://golang.org/dl/${golang_download_file}" \
+&& tar -C /usr/local -xzf ${golang_download_file} \
+&& echo "# Install ${golang_download_file}" >> /etc/profile \
+&& echo "export PATH=$PATH:/usr/local/go/bin" >> /etc/profile \
+&& echo "alias ll='ls -al'" >> /root/.bashrc \
+&& source /etc/profile && source /root/.bashrc
 
 # 2. Get Github repository about nalLAN
 RUN git clone https://github.com/TyeolRik/nallan.git /root/nallan
