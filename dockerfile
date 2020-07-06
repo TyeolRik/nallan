@@ -10,10 +10,10 @@ ARG golang_download_file=go1.14.4.linux-amd64.tar.gz
 # 1. Get Go Language as above version
 RUN wget "https://golang.org/dl/${golang_download_file}" \
 && tar -C /usr/local -xzf ${golang_download_file} \
-&& echo "# Install ${golang_download_file}" >> /etc/profile \
-&& echo "export PATH=$PATH:/usr/local/go/bin" >> /etc/profile \
+&& echo "# Install ${golang_download_file}" >> /etc/profile.d/init_go_path.sh \
+&& echo "export PATH=$PATH:/usr/local/go/bin" >> /etc/profile.d/init_go_path.sh \
 && echo "alias ll='ls -al'" >> /root/.bashrc \
-&& source /etc/profile && source /root/.bashrc
+&& source /root/.bashrc
 
 # 2. Get Github repository about nalLAN
 RUN git clone https://github.com/TyeolRik/nallan.git /root/nallan
